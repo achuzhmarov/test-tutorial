@@ -1,0 +1,38 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    ext {
+        springBootVersion = "2.0.3.RELEASE"
+    }
+
+    dependencies {
+        classpath(
+                "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        )
+    }
+}
+
+apply plugin: "java"
+apply plugin: "org.springframework.boot"
+
+repositories {
+    mavenCentral()
+}
+
+bootJar {
+    baseName = 'com.github.achuzhmarov'
+    version =  '1.0-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
+    compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    compile "org.hsqldb:hsqldb:2.4.1"
+
+    testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+    testCompile "org.apache.httpcomponents:httpclient:4.5.5"
+}
