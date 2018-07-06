@@ -10,17 +10,30 @@ import java.math.BigDecimal;
 @Entity
 @Table(name="product")
 public class Product extends BaseEntity {
-    @Column(name="name")
+    @Column(name="name", unique = true)
     private String name;
 
-    @Column(name="is_new")
-    private Boolean isNew;
+    @Column(name="is_advertised")
+    private Boolean isAdvertised;
 
     @Column(name="price")
     private BigDecimal price;
 
     @Column(name="discount")
     private BigDecimal discount;
+
+    public Product() {
+    }
+
+    /**
+     * copy constructor with id ignored
+     */
+    public Product(Product product) {
+        this.setPrice(product.getPrice());
+        this.setDiscount(product.getDiscount());
+        this.setName(product.getName());
+        this.setAdvertised(product.isAdvertised());
+    }
 
     public String getName() {
         return name;
@@ -30,12 +43,12 @@ public class Product extends BaseEntity {
         this.name = name;
     }
 
-    public Boolean getNew() {
-        return isNew;
+    public Boolean isAdvertised() {
+        return isAdvertised;
     }
 
-    public void setNew(Boolean aNew) {
-        isNew = aNew;
+    public void setAdvertised(Boolean isAdvertised) {
+        isAdvertised = isAdvertised;
     }
 
     public BigDecimal getPrice() {

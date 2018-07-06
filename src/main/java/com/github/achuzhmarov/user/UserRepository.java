@@ -2,5 +2,8 @@ package com.github.achuzhmarov.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<AppUser, Long> {
+    public Optional<AppUser> findByLogin(String login);
 }

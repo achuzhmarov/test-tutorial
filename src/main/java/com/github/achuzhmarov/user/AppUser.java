@@ -7,8 +7,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="app_user")
-public class User extends BaseEntity {
-    @Column(name="login")
+public class AppUser extends BaseEntity {
+    @Column(name="login", unique = true)
     private String login;
 
     @ManyToOne
