@@ -63,26 +63,7 @@ public class ProductService {
             return BigDecimal.ZERO;
         }
 
-        boolean isFavorite = user.getFavProduct().equals(product);
-        List<BigDecimal> multipliers = new ArrayList<>();
-
-        if (isFavorite) {
-            if (user.isPremium()) {
-                multipliers.add(new BigDecimal(8));
-            } else {
-                multipliers.add(new BigDecimal(5));
-            }
-        }
-
-        if (product.isAdvertised()) {
-            multipliers.add(new BigDecimal(3));
-        }
-
-        if (user.isPremium()) {
-            multipliers.add(new BigDecimal(2));
-        }
-
-        BigDecimal resultMultiplier = multipliers.stream()
+        BigDecimal resultMultiplier = calculateMultipliers(user, product).stream()
             .sorted(Comparator.reverseOrder())
             .limit(2)
             .reduce(BigDecimal.ONE, BigDecimal::multiply);
@@ -91,5 +72,29 @@ public class ProductService {
             .multiply(new BigDecimal(quantity))
             .multiply(resultMultiplier)
             .divide(BigDecimal.TEN, RoundingMode.HALF_UP);
+    }
+
+    private List<BigDecimal> calculateMultipliers(AppUser user, Product product) {
+        List<BigDecimal> multipliers = new ArrayList<>();
+
+        if (user.getFavProduct().equals(product)) {
+            if (user.isPremium()) {
+                multipliers.add(new BigDecimal(8));
+            } else {
+                multipliers.add(new BigDecimal(5));
+            }
+        } else if (user.isPremium()) {
+            multipliers.add(new BigDecimal(2));
+        }
+
+        if (product.isAdvertised()) {
+            multipliers.add(new BigDecimal(3));
+        }
+
+        if (product.getPrice().compareTo(new BigDecimal(10000)) > 0) {
+            multipliers.add(new BigDecimal(4));
+        }
+
+        return multipliers;
     }
 }
