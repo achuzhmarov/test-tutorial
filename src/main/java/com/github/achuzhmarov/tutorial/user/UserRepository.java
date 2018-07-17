@@ -1,4 +1,4 @@
-package com.github.achuzhmarov.user;
+package com.github.achuzhmarov.tutorial.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

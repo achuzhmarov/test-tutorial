@@ -1,8 +1,8 @@
-package com.github.achuzhmarov.product;
+package com.github.achuzhmarov.tutorial.product;
 
-import com.github.achuzhmarov.common.exception.DataNotFoundException;
-import com.github.achuzhmarov.user.AppUser;
-import com.github.achuzhmarov.user.UserAuthorizationService;
+import com.github.achuzhmarov.tutorial.common.exception.DataNotFoundException;
+import com.github.achuzhmarov.tutorial.user.AppUser;
+import com.github.achuzhmarov.tutorial.user.UserAuthorizationService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

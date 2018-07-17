@@ -1,4 +1,4 @@
-package com.github.achuzhmarov.product;
+package com.github.achuzhmarov.tutorial.product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,4 +1,4 @@
-package com.github.achuzhmarov.common.exception;
+package com.github.achuzhmarov.tutorial.common.exception;
 
 public class DataNotFoundException extends ApplicationException {
     public DataNotFoundException(String message) {

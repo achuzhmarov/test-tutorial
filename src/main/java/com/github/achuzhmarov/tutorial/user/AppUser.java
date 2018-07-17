@@ -1,7 +1,7 @@
-package com.github.achuzhmarov.user;
+package com.github.achuzhmarov.tutorial.user;
 
-import com.github.achuzhmarov.common.model.BaseEntity;
-import com.github.achuzhmarov.product.Product;
+import com.github.achuzhmarov.tutorial.common.model.BaseEntity;
+import com.github.achuzhmarov.tutorial.product.Product;
 
 import javax.persistence.*;
 

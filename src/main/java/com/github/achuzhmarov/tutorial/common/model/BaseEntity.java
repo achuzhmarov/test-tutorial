@@ -1,4 +1,4 @@
-package com.github.achuzhmarov.common.model;
+package com.github.achuzhmarov.tutorial.common.model;
 
 import javax.persistence.*;
 

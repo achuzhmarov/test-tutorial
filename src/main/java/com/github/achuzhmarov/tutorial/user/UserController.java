@@ -1,4 +1,4 @@
-package com.github.achuzhmarov.user;
+package com.github.achuzhmarov.tutorial.user;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
