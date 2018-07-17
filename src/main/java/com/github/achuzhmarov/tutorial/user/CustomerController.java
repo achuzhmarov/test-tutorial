@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user/")
-public class UserController {
-    private final UserService userService;
+public class CustomerController {
+    private final CustomerService customerService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     @PostMapping("favorite")
-    public void createProduct(@RequestBody Long favProductId) {
-        userService.setFavProduct(favProductId);
+    public void setFavProduct(@RequestBody Long favProductId) {
+        customerService.setFavProduct(favProductId);
     }
 }

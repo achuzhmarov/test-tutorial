@@ -6,8 +6,8 @@ import com.github.achuzhmarov.tutorial.product.Product;
 import javax.persistence.*;
 
 @Entity
-@Table(name="app_user")
-public class AppUser extends BaseEntity {
+@Table(name="customer")
+public class Customer extends BaseEntity {
     @Column(name="login", unique = true)
     private String login;
 

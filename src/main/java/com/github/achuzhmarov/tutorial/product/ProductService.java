@@ -1,8 +1,8 @@
 package com.github.achuzhmarov.tutorial.product;
 
 import com.github.achuzhmarov.tutorial.common.exception.DataNotFoundException;
-import com.github.achuzhmarov.tutorial.user.AppUser;
-import com.github.achuzhmarov.tutorial.user.UserAuthorizationService;
+import com.github.achuzhmarov.tutorial.user.Customer;
+import com.github.achuzhmarov.tutorial.user.CustomerAuthorizationService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,11 +17,11 @@ import java.util.Map;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    private final UserAuthorizationService userAuthorizationService;
+    private final CustomerAuthorizationService customerAuthorizationService;
 
-    public ProductService(ProductRepository productRepository, UserAuthorizationService userAuthorizationService) {
+    public ProductService(ProductRepository productRepository, CustomerAuthorizationService customerAuthorizationService) {
         this.productRepository = productRepository;
-        this.userAuthorizationService = userAuthorizationService;
+        this.customerAuthorizationService = customerAuthorizationService;
     }
 
     @Transactional(readOnly = true)
@@ -43,7 +43,7 @@ public class ProductService {
         dbProduct.setPrice(product.getPrice());
         dbProduct.setDiscount(product.getDiscount());
         dbProduct.setName(product.getName());
-        dbProduct.setAdvertised(product.isAdvertised());
+        dbProduct.setIsAdvertised(product.isAdvertised());
 
         return productRepository.save(dbProduct);
     }
@@ -51,14 +51,14 @@ public class ProductService {
     @Transactional(readOnly = true)
     public BigDecimal calculateBonusPoints(Map<Long, Long> productQuantities) {
         List<Product> products = productRepository.findAllById(productQuantities.keySet());
-        AppUser currentUser = userAuthorizationService.getCurrentUser();
+        Customer currentUser = customerAuthorizationService.getCurrentUser();
 
         return products.stream()
             .map(p -> calculateBonusPoints(currentUser, p, productQuantities.get(p.getId())))
             .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    private BigDecimal calculateBonusPoints(AppUser user, Product product, Long quantity) {
+    private BigDecimal calculateBonusPoints(Customer user, Product product, Long quantity) {
         if (product.getDiscount() != null) {
             return BigDecimal.ZERO;
         }
@@ -74,7 +74,7 @@ public class ProductService {
             .divide(BigDecimal.TEN, RoundingMode.HALF_UP);
     }
 
-    private List<BigDecimal> calculateMultipliers(AppUser user, Product product) {
+    private List<BigDecimal> calculateMultipliers(Customer user, Product product) {
         List<BigDecimal> multipliers = new ArrayList<>();
 
         if (user.getFavProduct().equals(product)) {

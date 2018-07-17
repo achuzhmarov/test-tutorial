@@ -1,4 +1,4 @@
-package com.github.achuzhmarov;
+package com.github.achuzhmarov.tutorial;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

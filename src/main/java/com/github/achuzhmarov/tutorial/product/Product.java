@@ -32,7 +32,7 @@ public class Product extends BaseEntity {
         this.setPrice(product.getPrice());
         this.setDiscount(product.getDiscount());
         this.setName(product.getName());
-        this.setAdvertised(product.isAdvertised());
+        this.setIsAdvertised(product.isAdvertised());
     }
 
     public String getName() {
@@ -47,8 +47,8 @@ public class Product extends BaseEntity {
         return isAdvertised;
     }
 
-    public void setAdvertised(Boolean isAdvertised) {
-        isAdvertised = isAdvertised;
+    public void setIsAdvertised(Boolean isAdvertised) {
+        this.isAdvertised = isAdvertised;
     }
 
     public BigDecimal getPrice() {
