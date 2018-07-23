@@ -2,7 +2,7 @@ package com.github.achuzhmarov.tutorial.product;
 
 import com.github.achuzhmarov.tutorial.common.exception.DataNotFoundException;
 import com.github.achuzhmarov.tutorial.user.Customer;
-import com.github.achuzhmarov.tutorial.user.CustomerAuthorizationService;
+import com.github.achuzhmarov.tutorial.user.CustomerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,12 +16,12 @@ import java.util.Map;
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
+    private final CustomerRepository customerRepository;
 
-    private final CustomerAuthorizationService customerAuthorizationService;
-
-    public ProductService(ProductRepository productRepository, CustomerAuthorizationService customerAuthorizationService) {
+    public ProductService(ProductRepository productRepository,
+                          CustomerRepository customerRepository) {
         this.productRepository = productRepository;
-        this.customerAuthorizationService = customerAuthorizationService;
+        this.customerRepository = customerRepository;
     }
 
     @Transactional(readOnly = true)
@@ -49,12 +49,13 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public BigDecimal calculateBonusPoints(Map<Long, Long> productQuantities) {
+    public BigDecimal calculateBonusPoints(String customerLogin, Map<Long, Long> productQuantities) {
         List<Product> products = productRepository.findAllById(productQuantities.keySet());
-        Customer currentUser = customerAuthorizationService.getCurrentUser();
+        Customer customer = customerRepository.findByLogin(customerLogin)
+                .orElseThrow(() -> new DataNotFoundException("Customer", customerLogin));
 
         return products.stream()
-            .map(p -> calculateBonusPoints(currentUser, p, productQuantities.get(p.getId())))
+            .map(p -> calculateBonusPoints(customer, p, productQuantities.get(p.getId())))
             .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 

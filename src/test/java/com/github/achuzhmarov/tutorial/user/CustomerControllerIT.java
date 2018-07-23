@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.github.achuzhmarov.tutorial.builder.ProductBuilder.product;
-import static com.github.achuzhmarov.tutorial.builder.UserBuilder.user;
+import static com.github.achuzhmarov.tutorial.builder.CustomerBuilder.customer;
 import static org.junit.Assert.assertEquals;
 
 public class CustomerControllerIT extends BaseIT {
@@ -15,15 +15,14 @@ public class CustomerControllerIT extends BaseIT {
 
     @Test
     public void setFavProduct() {
-        Customer user = user().login("user").premium(false).build();
+        Customer customer = customer().login("customer").premium(false).build();
         Product favProduct = product().name("userProduct").build();
-        customerRepository.save(user);
+        customerRepository.save(customer);
         productRepository.save(favProduct);
-        authorizeUser(user);
 
-        customerController.setFavProduct(favProduct.getId());
+        customerController.setFavProduct(customer.getLogin(), favProduct.getId());
 
-        Customer dbUser = customerRepository.getOne(user.getId());
-        assertEquals(dbUser.getFavProduct().getId(), favProduct.getId());
+        Customer dbCustomer = customerRepository.getOne(customer.getId());
+        assertEquals(dbCustomer.getFavProduct().getId(), favProduct.getId());
     }
 }

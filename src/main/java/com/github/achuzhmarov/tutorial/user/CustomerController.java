@@ -1,12 +1,9 @@
 package com.github.achuzhmarov.tutorial.user;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user/")
+@RequestMapping("/customer/")
 public class CustomerController {
     private final CustomerService customerService;
 
@@ -14,8 +11,8 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @PostMapping("favorite")
-    public void setFavProduct(@RequestBody Long favProductId) {
-        customerService.setFavProduct(favProductId);
+    @PostMapping("{customerLogin}/favorite")
+    public void setFavProduct(@PathVariable("customerLogin") String login, @RequestBody Long favProductId) {
+        customerService.setFavProduct(login, favProductId);
     }
 }

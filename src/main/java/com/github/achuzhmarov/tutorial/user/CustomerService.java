@@ -12,23 +12,20 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final ProductRepository productRepository;
 
-    private final CustomerAuthorizationService customerAuthorizationService;
-
     public CustomerService(CustomerRepository customerRepository,
-                           ProductRepository productRepository,
-                           CustomerAuthorizationService customerAuthorizationService) {
+                           ProductRepository productRepository) {
         this.customerRepository = customerRepository;
         this.productRepository = productRepository;
-        this.customerAuthorizationService = customerAuthorizationService;
     }
 
     @Transactional
-    public void setFavProduct(Long productId) {
-        Customer currentCustomer = customerAuthorizationService.getCurrentUser();
+    public void setFavProduct(String login, Long productId) {
+        Customer customer = customerRepository.findByLogin(login)
+                .orElseThrow(() -> new DataNotFoundException("Customer", login));
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new DataNotFoundException("Product", productId));
 
-        currentCustomer.setFavProduct(product);
-        customerRepository.save(currentCustomer);
+        customer.setFavProduct(product);
+        customerRepository.save(customer);
     }
 }
