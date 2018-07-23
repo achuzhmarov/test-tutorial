@@ -1,7 +1,7 @@
 package com.github.achuzhmarov.tutorial.builder;
 
-import com.github.achuzhmarov.tutorial.product.Product;
-import com.github.achuzhmarov.tutorial.user.Customer;
+import com.github.achuzhmarov.tutorial.model.Product;
+import com.github.achuzhmarov.tutorial.model.Customer;
 
 public class CustomerBuilder {
     Customer customer = new Customer();

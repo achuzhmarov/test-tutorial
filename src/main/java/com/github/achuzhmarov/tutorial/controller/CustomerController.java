@@ -1,5 +1,6 @@
-package com.github.achuzhmarov.tutorial.user;
+package com.github.achuzhmarov.tutorial.controller;
 
+import com.github.achuzhmarov.tutorial.service.CustomerService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

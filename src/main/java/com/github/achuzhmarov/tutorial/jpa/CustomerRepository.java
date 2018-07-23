@@ -1,5 +1,6 @@
-package com.github.achuzhmarov.tutorial.user;
+package com.github.achuzhmarov.tutorial.jpa;
 
+import com.github.achuzhmarov.tutorial.model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

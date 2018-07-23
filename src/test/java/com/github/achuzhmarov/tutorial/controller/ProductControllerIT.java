@@ -1,6 +1,8 @@
-package com.github.achuzhmarov.tutorial.product;
+package com.github.achuzhmarov.tutorial.controller;
 
 import com.github.achuzhmarov.tutorial.BaseIT;
+import com.github.achuzhmarov.tutorial.controller.ProductController;
+import com.github.achuzhmarov.tutorial.model.Product;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,7 +29,7 @@ public class ProductControllerIT extends BaseIT {
 
     @Test
     public void getProduct() {
-        
+
     }
 
     @Test

@@ -1,6 +1,6 @@
-package com.github.achuzhmarov.tutorial.product;
+package com.github.achuzhmarov.tutorial.model;
 
-import com.github.achuzhmarov.tutorial.common.model.BaseEntity;
+import com.github.achuzhmarov.tutorial.model.common.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,8 +1,10 @@
-package com.github.achuzhmarov.tutorial.product;
+package com.github.achuzhmarov.tutorial.service;
 
-import com.github.achuzhmarov.tutorial.common.exception.DataNotFoundException;
-import com.github.achuzhmarov.tutorial.user.Customer;
-import com.github.achuzhmarov.tutorial.user.CustomerRepository;
+import com.github.achuzhmarov.tutorial.exception.DataNotFoundException;
+import com.github.achuzhmarov.tutorial.model.Customer;
+import com.github.achuzhmarov.tutorial.jpa.CustomerRepository;
+import com.github.achuzhmarov.tutorial.model.Product;
+import com.github.achuzhmarov.tutorial.jpa.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

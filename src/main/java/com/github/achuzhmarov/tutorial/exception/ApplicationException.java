@@ -1,4 +1,4 @@
-package com.github.achuzhmarov.tutorial.common.exception;
+package com.github.achuzhmarov.tutorial.exception;
 
 public abstract class ApplicationException extends RuntimeException {
     ApplicationException(String message) {

@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableJpaRepositories(
-    basePackages = "com.github.achuzhmarov.tutorial"
+    basePackages = "com.github.achuzhmarov.tutorial.jpa"
 )
 @EnableTransactionManagement
 public class PersistenceConfiguration {

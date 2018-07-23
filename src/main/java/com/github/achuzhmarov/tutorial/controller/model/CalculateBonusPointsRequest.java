@@ -1,4 +1,4 @@
-package com.github.achuzhmarov.tutorial.product;
+package com.github.achuzhmarov.tutorial.controller.model;
 
 import java.util.Map;
 

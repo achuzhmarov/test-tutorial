@@ -1,9 +1,11 @@
-package com.github.achuzhmarov.tutorial.product;
+package com.github.achuzhmarov.tutorial.controller;
 
+import com.github.achuzhmarov.tutorial.controller.model.CalculateBonusPointsRequest;
+import com.github.achuzhmarov.tutorial.model.Product;
+import com.github.achuzhmarov.tutorial.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/product/")
@@ -29,7 +31,7 @@ public class ProductController {
         return productService.updateProduct(productId, product);
     }
 
-    @PostMapping("buy")
+    @PostMapping("bonus")
     public BigDecimal calculateBonusPoints(@RequestBody CalculateBonusPointsRequest request) {
         return productService.calculateBonusPoints(request.getCustomerLogin(), request.getProductQuantities());
     }

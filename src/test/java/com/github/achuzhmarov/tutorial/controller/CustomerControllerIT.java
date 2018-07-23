@@ -1,7 +1,9 @@
-package com.github.achuzhmarov.tutorial.user;
+package com.github.achuzhmarov.tutorial.controller;
 
 import com.github.achuzhmarov.tutorial.BaseIT;
-import com.github.achuzhmarov.tutorial.product.Product;
+import com.github.achuzhmarov.tutorial.controller.CustomerController;
+import com.github.achuzhmarov.tutorial.model.Customer;
+import com.github.achuzhmarov.tutorial.model.Product;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
