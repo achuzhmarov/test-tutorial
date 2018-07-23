@@ -1,4 +1,4 @@
-DROP TABLE app_user IF EXISTS;
+DROP TABLE customer IF EXISTS;
 DROP TABLE product IF EXISTS;
 
 CREATE TABLE product (
