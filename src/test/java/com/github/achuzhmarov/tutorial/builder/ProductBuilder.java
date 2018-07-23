@@ -3,16 +3,31 @@ package com.github.achuzhmarov.tutorial.builder;
 import com.github.achuzhmarov.tutorial.model.Product;
 
 import java.math.BigDecimal;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class ProductBuilder {
     private Product product = new Product();
 
-    public static ProductBuilder product() {
+    private static AtomicLong idGenerator = new AtomicLong();
+
+    public static ProductBuilder product(String name) {
         return new ProductBuilder()
-            .name("product")
+            .name(name)
             .advertised(false)
-            .price("0.00")
-            .discount("0.00");
+            .price("0.00");
+    }
+
+    public static ProductBuilder productWithId(String name) {
+        return new ProductBuilder()
+                .id(idGenerator.incrementAndGet())
+                .name(name)
+                .advertised(false)
+                .price("0.00");
+    }
+
+    public ProductBuilder id(Long id) {
+        this.product.setId(id);
+        return this;
     }
 
     public ProductBuilder name(String name) {

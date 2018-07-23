@@ -27,8 +27,8 @@ public class ProductController {
     }
 
     @PostMapping("{productId}/edit")
-    public Product updateProduct(@PathVariable("productId") long productId, @RequestBody Product product) {
-        return productService.updateProduct(productId, product);
+    public void updateProduct(@PathVariable("productId") long productId, @RequestBody Product product) {
+        productService.updateProduct(productId, product);
     }
 
     @PostMapping("bonus")

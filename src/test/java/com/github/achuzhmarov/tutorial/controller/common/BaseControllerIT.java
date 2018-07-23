@@ -1,21 +1,17 @@
-package com.github.achuzhmarov.tutorial;
+package com.github.achuzhmarov.tutorial.controller.common;
 
-import com.github.achuzhmarov.tutorial.jpa.ProductRepository;
 import com.github.achuzhmarov.tutorial.jpa.CustomerRepository;
+import com.github.achuzhmarov.tutorial.jpa.ProductRepository;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @Transactional
-public abstract class BaseIT {
-    @Autowired
-    protected TestRestTemplate restTemplate;
-
+public abstract class BaseControllerIT {
     @Autowired
     protected ProductRepository productRepository;
 

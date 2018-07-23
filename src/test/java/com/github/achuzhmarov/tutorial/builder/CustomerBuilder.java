@@ -1,14 +1,14 @@
 package com.github.achuzhmarov.tutorial.builder;
 
-import com.github.achuzhmarov.tutorial.model.Product;
 import com.github.achuzhmarov.tutorial.model.Customer;
+import com.github.achuzhmarov.tutorial.model.Product;
 
 public class CustomerBuilder {
     Customer customer = new Customer();
 
-    public static CustomerBuilder customer() {
+    public static CustomerBuilder customer(String login) {
         return new CustomerBuilder()
-            .login("login")
+            .login(login)
             .premium(false);
     }
 
