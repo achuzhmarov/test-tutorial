@@ -2,7 +2,7 @@ package com.github.achuzhmarov.tutorial.controller.common;
 
 import com.github.achuzhmarov.tutorial.jpa.CustomerRepository;
 import com.github.achuzhmarov.tutorial.jpa.ProductRepository;
-import org.junit.Before;
+import org.junit.After;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,7 +42,7 @@ public abstract class BaseServerIT {
         });
     }
 
-    @Before
+    @After
     public void clearDataFromDatabase() {
         runInTransaction(() -> {
             customerRepository.deleteAll();
