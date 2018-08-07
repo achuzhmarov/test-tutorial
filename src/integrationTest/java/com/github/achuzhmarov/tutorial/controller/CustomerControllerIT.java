@@ -4,6 +4,7 @@ import com.github.achuzhmarov.tutorial.controller.common.BaseControllerIT;
 import com.github.achuzhmarov.tutorial.controller.model.CalculateBonusPointsRequest;
 import com.github.achuzhmarov.tutorial.model.Customer;
 import com.github.achuzhmarov.tutorial.model.Product;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -51,6 +52,6 @@ public class CustomerControllerIT extends BaseControllerIT {
         );
 
 
-        assertEquals(number("2.10"), bonus);
+        Assert.assertEquals(number("2.10"), bonus);
     }
 }

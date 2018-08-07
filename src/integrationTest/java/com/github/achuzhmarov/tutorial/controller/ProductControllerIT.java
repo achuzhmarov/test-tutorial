@@ -2,6 +2,7 @@ package com.github.achuzhmarov.tutorial.controller;
 
 import com.github.achuzhmarov.tutorial.controller.common.BaseControllerIT;
 import com.github.achuzhmarov.tutorial.model.Product;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,8 +22,8 @@ public class ProductControllerIT extends BaseControllerIT {
 
         Product dbProduct = productRepository.getOne(createdProduct.getId());
         assertEquals("productName", dbProduct.getName());
-        assertEquals(number("1.01"), dbProduct.getPrice());
-        assertEquals(number("0.1"), dbProduct.getDiscount());
+        Assert.assertEquals(number("1.01"), dbProduct.getPrice());
+        Assert.assertEquals(number("0.1"), dbProduct.getDiscount());
         assertEquals(true, dbProduct.isAdvertised());
     }
 
@@ -62,8 +63,8 @@ public class ProductControllerIT extends BaseControllerIT {
 
         Product dbProduct = productRepository.getOne(product.getId());
         assertEquals("updatedName", dbProduct.getName());
-        assertEquals(number("1.1"), dbProduct.getPrice());
-        assertEquals(number("0.5"), dbProduct.getDiscount());
+        Assert.assertEquals(number("1.1"), dbProduct.getPrice());
+        Assert.assertEquals(number("0.5"), dbProduct.getDiscount());
         assertEquals(true, dbProduct.isAdvertised());
     }
 }
