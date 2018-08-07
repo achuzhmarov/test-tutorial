@@ -1,30 +1,17 @@
 package com.github.achuzhmarov.tutorial.service;
 
 import com.github.achuzhmarov.tutorial.exception.DataNotFoundException;
-import com.github.achuzhmarov.tutorial.jpa.CustomerRepository;
 import com.github.achuzhmarov.tutorial.jpa.ProductRepository;
-import com.github.achuzhmarov.tutorial.model.Customer;
 import com.github.achuzhmarov.tutorial.model.Product;
-import com.github.achuzhmarov.tutorial.service.util.BonusPointCalculator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
-    private final CustomerRepository customerRepository;
 
-    private final BonusPointCalculator bonusPointCalculator;
-
-    public ProductService(ProductRepository productRepository,
-                          CustomerRepository customerRepository) {
+    public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.customerRepository = customerRepository;
-        this.bonusPointCalculator = new BonusPointCalculator();
     }
 
     @Transactional(readOnly = true)
@@ -49,14 +36,5 @@ public class ProductService {
         dbProduct.setIsAdvertised(product.isAdvertised());
 
         return productRepository.save(dbProduct);
-    }
-
-    @Transactional(readOnly = true)
-    public BigDecimal calculateBonusPoints(String customerLogin, Map<Long, Long> productQuantities) {
-        List<Product> products = productRepository.findAllById(productQuantities.keySet());
-        Customer customer = customerRepository.findByLogin(customerLogin)
-                .orElseThrow(() -> new DataNotFoundException("Customer", customerLogin));
-
-        return bonusPointCalculator.calculate(customer, products, p -> productQuantities.get(p.getId()));
     }
 }

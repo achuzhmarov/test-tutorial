@@ -30,9 +30,4 @@ public class ProductController {
     public void updateProduct(@PathVariable("productId") long productId, @RequestBody Product product) {
         productService.updateProduct(productId, product);
     }
-
-    @PostMapping("bonus")
-    public BigDecimal calculateBonusPoints(@RequestBody CalculateBonusPointsRequest request) {
-        return productService.calculateBonusPoints(request.getCustomerLogin(), request.getProductQuantities());
-    }
 }
