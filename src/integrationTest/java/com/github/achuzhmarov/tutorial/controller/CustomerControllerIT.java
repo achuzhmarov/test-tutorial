@@ -4,15 +4,14 @@ import com.github.achuzhmarov.tutorial.controller.common.BaseControllerIT;
 import com.github.achuzhmarov.tutorial.controller.model.CalculateBonusPointsRequest;
 import com.github.achuzhmarov.tutorial.model.Customer;
 import com.github.achuzhmarov.tutorial.model.Product;
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.Map;
 
+import static com.github.achuzhmarov.tutorial.builder.BonusPointsBuilder.bonusPoints;
 import static com.github.achuzhmarov.tutorial.builder.CommonBuilder.mapOf;
-import static com.github.achuzhmarov.tutorial.builder.CommonBuilder.number;
 import static com.github.achuzhmarov.tutorial.builder.CustomerBuilder.customer;
 import static com.github.achuzhmarov.tutorial.builder.ProductBuilder.product;
 import static org.junit.Assert.assertEquals;
@@ -52,6 +51,9 @@ public class CustomerControllerIT extends BaseControllerIT {
         );
 
 
-        Assert.assertEquals(number("2.10"), bonus);
+        BigDecimal bonusPointsProduct1 = bonusPoints("0.10").build();
+        BigDecimal bonusPointsProduct2 = bonusPoints("1.00").quantity(2).build();
+        BigDecimal expectedBonus = bonusPointsProduct1.add(bonusPointsProduct2);
+        assertEquals(expectedBonus, bonus);
     }
 }
