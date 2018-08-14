@@ -5,9 +5,9 @@ import com.github.achuzhmarov.tutorial.model.Product;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Map;
 
+import static com.github.achuzhmarov.tutorial.builder.BonusPointsBuilder.bonusPoints;
 import static com.github.achuzhmarov.tutorial.builder.CommonBuilder.list;
 import static com.github.achuzhmarov.tutorial.builder.CommonBuilder.mapOf;
 import static com.github.achuzhmarov.tutorial.builder.CustomerBuilder.customer;
@@ -26,7 +26,7 @@ public class BonusPointCalculatorTest {
 
         BigDecimal bonus = bonusPointCalculator.calculate(customer, list(product), quantities::get);
 
-        BigDecimal expectedBonus = bonusPoints("1.00");
+        BigDecimal expectedBonus = bonusPoints("0.10").build();
         assertEquals(expectedBonus, bonus);
     }
 
@@ -38,7 +38,7 @@ public class BonusPointCalculatorTest {
 
         BigDecimal bonus = bonusPointCalculator.calculate(customer, list(product), quantities::get);
 
-        BigDecimal expectedBonus = bonusPoints("1.00", FAVORITE_MULTIPLIER);
+        BigDecimal expectedBonus = bonusPoints("0.10").addMultiplier(FAVORITE_MULTIPLIER).build();
         assertEquals(expectedBonus, bonus);
     }
 
@@ -50,7 +50,7 @@ public class BonusPointCalculatorTest {
 
         BigDecimal bonus = bonusPointCalculator.calculate(customer, list(product), quantities::get);
 
-        BigDecimal expectedBonus = bonusPoints("1.00", PREMIUM_MULTIPLIER);
+        BigDecimal expectedBonus = bonusPoints("0.10").addMultiplier(PREMIUM_MULTIPLIER).build();
         assertEquals(expectedBonus, bonus);
     }
 
@@ -62,7 +62,7 @@ public class BonusPointCalculatorTest {
 
         BigDecimal bonus = bonusPointCalculator.calculate(customer, list(product), quantities::get);
 
-        BigDecimal expectedBonus = bonusPoints("1.00", PREMIUM_FAVORITE_MULTIPLIER);
+        BigDecimal expectedBonus = bonusPoints("0.10").addMultiplier(PREMIUM_FAVORITE_MULTIPLIER).build();
         assertEquals(expectedBonus, bonus);
     }
 
@@ -74,7 +74,7 @@ public class BonusPointCalculatorTest {
 
         BigDecimal bonus = bonusPointCalculator.calculate(customer, list(product), quantities::get);
 
-        BigDecimal expectedBonus = bonusPoints("1.00", ADVERTISED_MULTIPLIER);
+        BigDecimal expectedBonus = bonusPoints("0.10").addMultiplier(ADVERTISED_MULTIPLIER).build();
         assertEquals(expectedBonus, bonus);
     }
 
@@ -86,7 +86,7 @@ public class BonusPointCalculatorTest {
 
         BigDecimal bonus = bonusPointCalculator.calculate(customer, list(product), quantities::get);
 
-        BigDecimal expectedBonus = bonusPoints("10000.00", EXPENSIVE_MULTIPLIER);
+        BigDecimal expectedBonus = bonusPoints("1000.00").addMultiplier(EXPENSIVE_MULTIPLIER).build();
         assertEquals(expectedBonus, bonus);
     }
 
@@ -98,7 +98,7 @@ public class BonusPointCalculatorTest {
 
         BigDecimal bonus = bonusPointCalculator.calculate(customer, list(product), quantities::get);
 
-        BigDecimal expectedBonus = bonusPoints("9999.99");
+        BigDecimal expectedBonus = bonusPoints("1000.00").build();
         assertEquals(expectedBonus, bonus);
     }
 
@@ -121,7 +121,9 @@ public class BonusPointCalculatorTest {
 
         BigDecimal bonus = bonusPointCalculator.calculate(customer, list(product), quantities::get);
 
-        BigDecimal expectedBonus = bonusPoints("1.00", PREMIUM_MULTIPLIER, ADVERTISED_MULTIPLIER);
+        BigDecimal expectedBonus = bonusPoints("0.10")
+                .addMultiplier(PREMIUM_MULTIPLIER)
+                .addMultiplier(ADVERTISED_MULTIPLIER).build();
         assertEquals(expectedBonus, bonus);
     }
 
@@ -133,7 +135,9 @@ public class BonusPointCalculatorTest {
 
         BigDecimal bonus = bonusPointCalculator.calculate(customer, list(product), quantities::get);
 
-        BigDecimal expectedBonus = bonusPoints("10000.00", EXPENSIVE_MULTIPLIER, ADVERTISED_MULTIPLIER);
+        BigDecimal expectedBonus = bonusPoints("1000.00")
+                .addMultiplier(EXPENSIVE_MULTIPLIER)
+                .addMultiplier(ADVERTISED_MULTIPLIER).build();
         assertEquals(expectedBonus, bonus);
     }
 
@@ -146,23 +150,9 @@ public class BonusPointCalculatorTest {
 
         BigDecimal bonus = bonusPointCalculator.calculate(customer, list(product1, product2), quantities::get);
 
-        BigDecimal expectedBonus = bonusPoints("1.00")
-                .add(bonusPoints("10.00").multiply(new BigDecimal(2)));
+        BigDecimal bonusPointsProduct1 = bonusPoints("0.10").build();
+        BigDecimal bonusPointsProduct2 = bonusPoints("1.00").quantity(2).build();
+        BigDecimal expectedBonus = bonusPointsProduct1.add(bonusPointsProduct2);
         assertEquals(expectedBonus, bonus);
-    }
-
-    private BigDecimal bonusPoints(String price) {
-        return bonusPoints(price, BigDecimal.ONE, BigDecimal.ONE);
-    }
-
-    private BigDecimal bonusPoints(String price, BigDecimal multiplier) {
-        return bonusPoints(price, multiplier, BigDecimal.ONE);
-    }
-
-    private BigDecimal bonusPoints(String price, BigDecimal multiplier1, BigDecimal multiplier2) {
-        return new BigDecimal(price)
-                .divide(BONUS_POINTS_BASE_PERCENT, RoundingMode.HALF_UP)
-                .multiply(multiplier1)
-                .multiply(multiplier2);
     }
 }
