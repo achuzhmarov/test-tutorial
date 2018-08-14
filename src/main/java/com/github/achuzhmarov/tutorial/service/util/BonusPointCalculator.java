@@ -11,6 +11,15 @@ import java.util.List;
 import java.util.function.Function;
 
 public class BonusPointCalculator {
+    static final BigDecimal BONUS_POINTS_BASE_PERCENT = BigDecimal.TEN;
+    static final int MULTIPLIERS_LIMIT = 2;
+    static final BigDecimal PREMIUM_MULTIPLIER = new BigDecimal(2);
+    static final BigDecimal FAVORITE_MULTIPLIER = new BigDecimal(5);
+    static final BigDecimal PREMIUM_FAVORITE_MULTIPLIER = new BigDecimal(8);
+    static final BigDecimal ADVERTISED_MULTIPLIER = new BigDecimal(3);
+    static final BigDecimal EXPENSIVE_MULTIPLIER = new BigDecimal(4);
+    static final BigDecimal EXPENSIVE_TRESHOLD = new BigDecimal(10000);
+
     public BigDecimal calculate(Customer customer, List<Product> products, Function<Product, Long> quantities) {
         return products.stream()
             .map(p -> calculatePointsForSingleProduct(customer, p, quantities.apply(p)))
@@ -24,13 +33,13 @@ public class BonusPointCalculator {
 
         BigDecimal resultMultiplier = calculateMultipliers(customer, product).stream()
                 .sorted(Comparator.reverseOrder())
-                .limit(2)
+                .limit(MULTIPLIERS_LIMIT)
                 .reduce(BigDecimal.ONE, BigDecimal::multiply);
 
         return product.getPrice()
                 .multiply(new BigDecimal(quantity))
                 .multiply(resultMultiplier)
-                .divide(BigDecimal.TEN, RoundingMode.HALF_UP);
+                .divide(BONUS_POINTS_BASE_PERCENT, RoundingMode.HALF_UP);
     }
 
     private List<BigDecimal> calculateMultipliers(Customer customer, Product product) {
@@ -38,20 +47,20 @@ public class BonusPointCalculator {
 
         if (customer.getFavProduct() != null && customer.getFavProduct().equals(product)) {
             if (customer.isPremium()) {
-                multipliers.add(new BigDecimal(8));
+                multipliers.add(PREMIUM_FAVORITE_MULTIPLIER);
             } else {
-                multipliers.add(new BigDecimal(5));
+                multipliers.add(FAVORITE_MULTIPLIER);
             }
         } else if (customer.isPremium()) {
-            multipliers.add(new BigDecimal(2));
+            multipliers.add(PREMIUM_MULTIPLIER);
         }
 
         if (product.isAdvertised()) {
-            multipliers.add(new BigDecimal(3));
+            multipliers.add(ADVERTISED_MULTIPLIER);
         }
 
-        if (product.getPrice().compareTo(new BigDecimal(10000)) >= 0) {
-            multipliers.add(new BigDecimal(4));
+        if (product.getPrice().compareTo(EXPENSIVE_TRESHOLD) >= 0) {
+            multipliers.add(EXPENSIVE_MULTIPLIER);
         }
 
         return multipliers;

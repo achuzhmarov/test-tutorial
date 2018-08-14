@@ -17,14 +17,6 @@ public class ProductBuilder {
             .price("0.00");
     }
 
-    public static ProductBuilder productWithId(String name) {
-        return new ProductBuilder()
-                .id(idGenerator.incrementAndGet())
-                .name(name)
-                .advertised(false)
-                .price("0.00");
-    }
-
     public ProductBuilder id(Long id) {
         this.product.setId(id);
         return this;
