@@ -33,8 +33,7 @@ public class BonusPointCalculatorTest {
     @Test
     public void calculate_favProduct() {
         Product product = product("product").price("1.00").build();
-        Customer customer = customer("customer").build();
-        customer.setFavProduct(product);
+        Customer customer = customer("customer").favProduct(product).build();
         Map<Product, Long> quantities = mapOf(product, 1L);
 
         BigDecimal bonus = bonusPointCalculator.calculate(customer, list(product), quantities::get);
@@ -58,8 +57,7 @@ public class BonusPointCalculatorTest {
     @Test
     public void calculate_premiumCustomer_favProduct() {
         Product product = product("product").price("1.00").build();
-        Customer customer = customer("customer").premium(true).build();
-        customer.setFavProduct(product);
+        Customer customer = customer("customer").favProduct(product).premium(true).build();
         Map<Product, Long> quantities = mapOf(product, 1L);
 
         BigDecimal bonus = bonusPointCalculator.calculate(customer, list(product), quantities::get);

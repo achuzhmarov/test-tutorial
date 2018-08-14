@@ -18,7 +18,7 @@ public class BonusPointCalculator {
     static final BigDecimal PREMIUM_FAVORITE_MULTIPLIER = new BigDecimal(8);
     static final BigDecimal ADVERTISED_MULTIPLIER = new BigDecimal(3);
     static final BigDecimal EXPENSIVE_MULTIPLIER = new BigDecimal(4);
-    static final BigDecimal EXPENSIVE_TRESHOLD = new BigDecimal(10000);
+    static final BigDecimal EXPENSIVE_THRESHOLD = new BigDecimal(10000);
 
     public BigDecimal calculate(Customer customer, List<Product> products, Function<Product, Long> quantities) {
         return products.stream()
@@ -59,7 +59,7 @@ public class BonusPointCalculator {
             multipliers.add(ADVERTISED_MULTIPLIER);
         }
 
-        if (product.getPrice().compareTo(EXPENSIVE_TRESHOLD) >= 0) {
+        if (product.getPrice().compareTo(EXPENSIVE_THRESHOLD) >= 0) {
             multipliers.add(EXPENSIVE_MULTIPLIER);
         }
 
