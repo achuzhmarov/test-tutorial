@@ -8,11 +8,11 @@ This application demonstrates how to write unit and integration tests for a java
 
     gradle bootRun
 
-If you do not have gradle installed, you can run using 
+If you do not have gradle installed, you can use
     
     ./gradlew bootRun
 
-Than you can check if application is running with curl:
+You can use curl to send some requests:
 
     curl -X POST http://localhost:8080/product/new -H 'Content-Type: application/json' -d '{"name": "product_name", "isAdvertised": true, "price": 1.01}'
     curl http://localhost:8080/product/0
